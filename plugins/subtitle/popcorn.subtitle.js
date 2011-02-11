@@ -57,19 +57,24 @@
         options:{
           start    : {elem:'input', type:'text', label:'In'},
           end      : {elem:'input', type:'text', label:'Out'},
-          target  :  'Subtitle-container',
-          text     : {elem:'input', type:'text', label:'Text'}
+          target   : 'Subtitle-container',
+          text     : {elem:'input', type:'text', label:'Text'},
         }
       },
 
       _setup: function( options ) {
 
-        // Creates a div for all subtitles to use
+	  if(!options.end){
+        options.end = options.start+1; // this seems redundant, but it's the simplest solution.
+		                               // refer to subtitle start: for actual assignment
+	  }
+	  
+	  // Creates a div for all subtitles to use
         if ( !this.container ) {
           this.container = document.createElement('div');
 
-          this.container.style.position   = "absolute";
-          this.container.style.color      = "white";
+          this.container.style.position   = "absolute";		  
+		  this.container.style.color      = "white";
           this.container.style.textShadow = "black 2px 2px 6px";
           this.container.style.fontSize   = "18px";
           this.container.style.fontWeight = "bold";
@@ -159,7 +164,11 @@
        * of the video  reaches the start time provided by the 
        * options variable
        */
+	   
       start: function(event, options){
+	    if(options.end === (options.start+1)){
+		  options.end = this.video.duration; // subtitle without an end will continue unless overwritten
+		}
         options.container.style.display = options.display;
         options.showSubtitle( options, options.text );
       },

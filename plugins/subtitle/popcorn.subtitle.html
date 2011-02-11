@@ -14,17 +14,25 @@
       .volume(0)
       .play() 
       .subtitle({
-        start: 5, // seconds
-        end: 15, // seconds
-        text: 'this is the first subtitle of 2011',
+        start: 3, // seconds
+        //end: 50, // NO END! OMG!
+        text: 'this subtitle does not have an out specified...',
         language: "en",
         languagesrc: "language",
         accessibilitysrc: "accessibility"
       } )
       .subtitle({
-        start: 20, // seconds
-        end: 45, // seconds
-        text: 'this is the second subtitle of 2011',
+        start: 10, // seconds
+        end: 25, // seconds
+        text: 'BAM!',
+        language: "en",
+        languagesrc: "language",
+        accessibilitysrc: "accessibility"
+      } )
+	  .subtitle({
+        start: 35, // seconds
+        end: 40, // seconds
+        text: 'this is the third subtitle of 2011',
         language: "en",
         languagesrc: "language",
         accessibilitysrc: "accessibility"
@@ -58,8 +66,8 @@
   </div>
   <h2>Choose your language</h2>
     <select id="language">
-      <option value="zh" selected="selected">Chinese</option>
-      <option value="en">English</option>
+      <option value="zh"<!-- selected="selected"-->>Chinese</option>
+      <option value="en" selected="selected">English</option>
       <option value="fr">French</option>
       <option value="de">German</option>
       <option value="it">Italian</option>
