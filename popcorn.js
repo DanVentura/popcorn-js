@@ -1,8 +1,6 @@
 (function(global, document) {
-
   //  Cache refs to speed up calls to native utils
-  var  
-  forEach = Array.prototype.forEach, 
+  var forEach = Array.prototype.forEach, 
   hasOwn = Object.prototype.hasOwnProperty, 
   slice = Array.prototype.slice,
 
@@ -14,6 +12,9 @@
   readyBound = false,
   readyFired = false,
   
+  //subtitle tracker
+  subtitleOptions = [],
+  currentSubtitle = 0,
 
   //  Declare a pseudo-private constructor
   //  Returns an instance object.    
@@ -27,7 +28,7 @@
   Popcorn.p = Popcorn.prototype = {
 
     init: function( entity ) {
-
+    
       var elem, matches;
       
       //  Supports Popcorn(function () { /../ }) 
@@ -72,8 +73,8 @@
           document.addEventListener( "DOMContentLoaded", DOMContentLoaded, false);
         }
 
-        
-        
+
+
         return;  
       }
  
@@ -86,7 +87,7 @@
       
       
       this.video = elem ? elem : null;
-      
+
       this.data = {
         history: [],
         events: {},
@@ -239,7 +240,7 @@
       return size;
     }, 
     nop: function () {}
-  });    
+  });
   
   //  Memoization property
   Popcorn.guid.counter  = 1;
@@ -639,7 +640,7 @@
       }*/        
 
       pluginFn  = function ( options ) {
-        
+
         if ( !options ) {
           return this;
         } 
@@ -654,45 +655,53 @@
           options.start = 0;
         }
         
-        if ( !( "end" in options ) ) {
-          options.end = this.duration();
+        if( !( "end" in options ) ) {
+          options.noEnd = true;
         }
 
         //  If a _setup was declared, then call it before 
         //  the events commence
-        
+
         if ( "_setup" in setup && typeof setup._setup === "function" ) {
-          
+
           // Resolves 239, 241, 242
           options.target || 
             ( setup.manifest.options.target && 
                 ( options.target = setup.manifest.options.target ) );
 
+          subtitleOptions[currentSubtitle] = options;
+          var previousSubtitle;
+          // if a subtitle follows an endless subtitle, give the previous one an end
+          if ( ( previousSubtitle = subtitleOptions[ currentSubtitle - 1 ] ) && previousSubtitle.noEnd ) {
+            previousSubtitle.noEnd = false;
+            previousSubtitle.end = options.start;
+            Popcorn.removeTrackEvent( this, Popcorn.getLastTrackEventId( this ) );
+            Popcorn.addTrackEvent( this, previousSubtitle );
+          }
           setup._setup.call( this, options );
+          Popcorn.addTrackEvent( this, options );
+
+          currentSubtitle++;
         }
-        
 
-        Popcorn.addTrackEvent( this, options );
-
-        
         //  Future support for plugin event definitions 
         //  for all of the native events
         Popcorn.forEach( setup, function ( callback, type ) {
-        
+
           if ( type !== "type" ) {
-          
+
             if ( reserved.indexOf(type) === -1 ) {
 
               this.listen( type, callback );
             }
           }
-          
+
         }, this);
-        
+
         return this;
       };
     }
-    
+
     //  If a function is passed... 
     if ( typeof definition === "function" ) {
       
@@ -711,7 +720,7 @@
     
     //  Assign new named definition     
     plugin[ name ] = pluginFn;
-    
+
     //  Extend Popcorn.p with new named definition
     Popcorn.extend( Popcorn.p, plugin );
     

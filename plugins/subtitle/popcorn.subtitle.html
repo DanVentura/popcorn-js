@@ -15,23 +15,21 @@
       .play() 
       .subtitle({
         start: 3, // seconds
-        //end: 50, // NO END! OMG!
-        text: 'this subtitle does not have an out specified...',
+        text: 'this is the first subtitle of 2011',
         language: "en",
         languagesrc: "language",
         accessibilitysrc: "accessibility"
       } )
       .subtitle({
         start: 10, // seconds
-        end: 25, // seconds
-        text: 'BAM!',
+        end: 15, // seconds
+        text: 'this is the second subtitle of 2011',
         language: "en",
         languagesrc: "language",
         accessibilitysrc: "accessibility"
       } )
 	  .subtitle({
-        start: 35, // seconds
-        end: 40, // seconds
+        start: 20, // seconds
         text: 'this is the third subtitle of 2011',
         language: "en",
         languagesrc: "language",
@@ -44,8 +42,9 @@
 </head>
 <body>
   <h1 id="qunit-header">Popcorn Subtitle Plug-in Demo</h1>
-  <p> A subtitle displaying 'this is the first subtitle of 2011' will appear at 5 seconds and disappear at 15 seconds.</p>
-  <p> A subtitle displaying 'this is the second subtitle of 2011' will appear at 20 seconds and disappear at 45 seconds.</p>
+  <p> A subtitle displaying 'this is the first subtitle of 2011' will appear at 3 seconds and disappear only when overwritten.</p>
+  <p> A subtitle displaying 'this is the second subtitle of 2011' will appear at 10 seconds and disappear at 15 seconds.</p>
+  <p> A subtitle displaying 'this is the third subtitle of 2011' will appear at 20 seconds and continue until the end.</p>
   <div>
 
     <video id='video' 
@@ -66,7 +65,7 @@
   </div>
   <h2>Choose your language</h2>
     <select id="language">
-      <option value="zh"<!-- selected="selected"-->>Chinese</option>
+      <option value="zh">Chinese</option>
       <option value="en" selected="selected">English</option>
       <option value="fr">French</option>
       <option value="de">German</option>
