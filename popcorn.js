@@ -13,8 +13,8 @@
   readyFired = false,
   
   //subtitle tracker
-  subtitleOptions = [],
-  currentSubtitle = 0,
+  previousSubtitle,
+  currentSubtitle,
 
   //  Declare a pseudo-private constructor
   //  Returns an instance object.    
@@ -668,20 +668,20 @@
           options.target || 
             ( setup.manifest.options.target && 
                 ( options.target = setup.manifest.options.target ) );
+          if ( currentSubtitle ) {
+            previousSubtitle = currentSubtitle;
+          }
+          currentSubtitle = options;
 
-          subtitleOptions[currentSubtitle] = options;
-          var previousSubtitle;
           // if a subtitle follows an endless subtitle, give the previous one an end
-          if ( ( previousSubtitle = subtitleOptions[ currentSubtitle - 1 ] ) && previousSubtitle.noEnd ) {
+          if ( previousSubtitle && previousSubtitle.noEnd ) {
             previousSubtitle.noEnd = false;
-            previousSubtitle.end = options.start;
+            previousSubtitle.end = currentSubtitle.start;
             Popcorn.removeTrackEvent( this, Popcorn.getLastTrackEventId( this ) );
             Popcorn.addTrackEvent( this, previousSubtitle );
           }
-          setup._setup.call( this, options );
-          Popcorn.addTrackEvent( this, options );
-
-          currentSubtitle++;
+          setup._setup.call( this, currentSubtitle );
+          Popcorn.addTrackEvent( this, currentSubtitle );
         }
 
         //  Future support for plugin event definitions 

@@ -63,15 +63,15 @@
       },
 
       _setup: function( options ) {
-//--------------------------------------------------------------------------------------------------------------------------------------------
+
         if ( !options.end ) {
           options.end = options.start+1;
         }
-//--------------------------------------------------------------------------------------------------------------------------------------------
+
 		// Creates a div for all subtitles to use
         if ( !this.container ) {
           this.container = document.createElement('div');
-
+          this.container.id = "subtitleDiv";
           this.container.style.position   = "absolute";
           this.container.style.color      = "white";
           this.container.style.textShadow = "black 2px 2px 6px";
