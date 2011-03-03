@@ -76,7 +76,7 @@ test("Popcorn Subtitle Plugin", function () {
     if( popped.currentTime() > 20) {
       equals (subtitlediv.innerHTML, "this is the third subtitle of 2011", "subtitle displaying correct information" );
       plus();
-      clearInterval( interval3 );
+      clearInterval( interval4 );
     }
   }, 5000);
 

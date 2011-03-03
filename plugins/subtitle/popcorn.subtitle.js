@@ -34,17 +34,6 @@
     } );
   };
 
-
-/*
-      // Find element offset
-      if (element.offsetParent) {
-        do {
-          offsetX += element.offsetLeft;
-          offsetY += element.offsetTop;
-        } while ((element = element.offsetParent));
-      }
-*/
-
   Popcorn.plugin( "subtitle" , {
     
       manifest: {
@@ -71,7 +60,7 @@
 		// Creates a div for all subtitles to use
         if ( !this.container ) {
           this.container = document.createElement('div');
-          this.container.id = "subtitleDiv";
+          this.container.id = "subtitlediv";
           this.container.style.position   = "absolute";
           this.container.style.color      = "white";
           this.container.style.textShadow = "black 2px 2px 6px";
@@ -84,9 +73,8 @@
           this.container.style.top        = offset( this.video ).top + this.video.offsetHeight - 65 + "px";
           this.container.style.left       = offset( this.video ).left + "px";
 
-          this.video.parentNode.appendChild( this.container );
+          document.body.appendChild( this.container );
         }
-
         // if a target is specified, use that
         if ( options.target && options.target !== 'Subtitle-container' ) {
           options.container = document.getElementById( options.target );
