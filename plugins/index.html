@@ -34,25 +34,23 @@
                     0, 25000, 15000, 10000, 20000, 15000 ];
     
     var setTest = function( index ) {
-      var url = function(str) {
+      var url = function( str ) {
         return str + "/popcorn." + str + ".unit.html";
       };
       document.getElementById('out').src = url( testUrl[ index ] );
     };
       
-    setTimeout(function() {
-      for ( var i = 0, delay = 0; i < 10; i++, delay += testDur[i - 1] ) {
-        (function (j) {
-          eventList[j] = setTimeout(function() {
-            setTest(j);
-          }, delay);
-        })(i);
-      }
-    }, 0);
+    for ( var i = 0, delay = 0; i < 10; delay += testDur[i], i++ ) {
+      (function ( j ) {
+        eventList[j] = setTimeout(function() {
+          setTest( j );
+        }, delay);
+      })( i );
+    }
   }
   function clearEvents(){
-    for(x in eventList){
-      clearTimeout(x);
+    for( x in eventList ) {
+      clearTimeout( x );
     }
   }
   </script>
