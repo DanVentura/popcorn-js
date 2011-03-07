@@ -54,7 +54,7 @@ test("Popcorn Subtitle Plugin", function () {
       plus();
       clearInterval( interval );
     }
-  }, 2000);
+  }, 500);
   
   interval2 = setInterval( function() {
     if( popped.currentTime() >= 10 && popped.currentTime() < 15  ) {
@@ -62,7 +62,7 @@ test("Popcorn Subtitle Plugin", function () {
       plus();
       clearInterval( interval2 );
     }
-  }, 3000);
+  }, 500);
 
   interval3 = setInterval( function() {
     if( popped.currentTime() >= 15 && popped.currentTime() < 20 ) {
@@ -70,7 +70,7 @@ test("Popcorn Subtitle Plugin", function () {
       plus();
       clearInterval( interval3 );
     }
-  }, 4000);
+  }, 500);
   
   interval4 = setInterval( function() {
     if( popped.currentTime() > 20) {
@@ -78,6 +78,6 @@ test("Popcorn Subtitle Plugin", function () {
       plus();
       clearInterval( interval4 );
     }
-  }, 5000);
+  }, 500);
 
 });
