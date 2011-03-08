@@ -48,7 +48,7 @@ test("Popcorn wikipedia Plugin", function () {
       plus();
       equals (theArticle.childElementCount, 2, "wikidiv now contains two child elements" );
       plus();
-      equals (theArticle.childNodes[2].innerHTML, "Cape Town metropolitan municipality. It is the provincial capital and primate city ...", "wikidiv has the right content" );
+      equals (theArticle.childElement[1].innerHTML, "Cape Town metropolitan municipality. It is the provincial capital and primate city ...", "wikidiv has the right content" );
       plus();
       clearInterval( wikiInterval );
     }

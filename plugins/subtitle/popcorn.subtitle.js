@@ -11,14 +11,14 @@
     var left, top;
     left = top = 0;
     if (obj.offsetParent) {
-      do {
-        left += obj.offsetLeft;
-        top  += obj.offsetTop;
-      } while (obj = obj.offsetParent);
+        do {
+            left += obj.offsetLeft;
+            top  += obj.offsetTop;
+        } while (obj = obj.offsetParent);
     }
     return {
-      left : left,
-      top : top
+        left : left,
+        top : top
     };
   };
 
@@ -29,10 +29,21 @@
 
     google.language.translate( text, '', options.selectedLanguage, function( result ) {
 
-    options.container.innerHTML = result.translation;
+      options.container.innerHTML = result.translation;
 
     } );
   };
+
+
+/*
+      // Find element offset
+      if (element.offsetParent) {
+        do {
+          offsetX += element.offsetLeft;
+          offsetY += element.offsetTop;
+        } while ((element = element.offsetParent));
+      }
+*/
 
   Popcorn.plugin( "subtitle" , {
     
@@ -46,17 +57,17 @@
         options:{
           start    : {elem:'input', type:'text', label:'In'},
           end      : {elem:'input', type:'text', label:'Out'},
-          target   : 'Subtitle-container',
+          target  :  'Subtitle-container',
           text     : {elem:'input', type:'text', label:'Text'}
         }
       },
 
       _setup: function( options ) {
 
-		// Creates a div for all subtitles to use
+        // Creates a div for all subtitles to use
         if ( !this.container ) {
           this.container = document.createElement('div');
-          this.container.id = "subtitlediv";
+
           this.container.style.position   = "absolute";
           this.container.style.color      = "white";
           this.container.style.textShadow = "black 2px 2px 6px";
@@ -69,8 +80,9 @@
           this.container.style.top        = offset( this.video ).top + this.video.offsetHeight - 65 + "px";
           this.container.style.left       = offset( this.video ).left + "px";
 
-          document.body.appendChild( this.container );
+          this.video.parentNode.appendChild( this.container );
         }
+
         // if a target is specified, use that
         if ( options.target && options.target !== 'Subtitle-container' ) {
           options.container = document.getElementById( options.target );
@@ -79,7 +91,7 @@
         }
 
         var accessibility = document.getElementById( options.accessibilitysrc ),
-        that = this;
+            that = this;
 
         options.showSubtitle = function() {
           options.container.innerHTML = options.text;
@@ -97,15 +109,18 @@
             this.languageSources = {};
           }
 
+          
+
           if ( !this.languageSources[ options.languagesrc ] ) {
             this.languageSources[ options.languagesrc ] = {};
-
+            
           }
 
           if ( !this.languageSources[ options.languagesrc ][ options.target ] ) {
             this.languageSources[ options.languagesrc ][ options.target ] = true;
 
             options.languageSrc.addEventListener( "change", function() {
+
 
               options.toggleSubtitles();
               options.showSubtitle( options, options.container.innerHTML );
@@ -147,7 +162,7 @@
       start: function(event, options){
         options.container.style.display = options.display;
         options.showSubtitle( options, options.text );
-      }, 
+      },
       /**
        * @member subtitle 
        * The end function will be executed when the currentTime 
