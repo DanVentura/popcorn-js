@@ -53,10 +53,6 @@
 
       _setup: function( options ) {
 
-        if ( !options.end ) {
-          options.end = options.start+1;
-        }
-
 		// Creates a div for all subtitles to use
         if ( !this.container ) {
           this.container = document.createElement('div');
@@ -149,9 +145,6 @@
        * options variable
        */
       start: function(event, options){
-        if ( options.noEnd ) {
-          options.end = this.video.duration;
-        }
         options.container.style.display = options.display;
         options.showSubtitle( options, options.text );
       }, 
