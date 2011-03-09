@@ -108,6 +108,7 @@
         // Creates a div for all subtitles to use
         if ( !this.container ) {
           this.container = document.createElement('div');
+          this.container.id = "subtitlediv";
 
           this.container.style.position   = "absolute";
           this.container.style.color      = "white";
@@ -123,7 +124,6 @@
 
           document.body.appendChild( this.container );
         }
-
         // if a target is specified, use that
         if ( options.target && options.target !== 'Subtitle-container' ) {
           options.container = document.getElementById( options.target );
